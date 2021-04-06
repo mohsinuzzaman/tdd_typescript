@@ -1,10 +1,12 @@
 import express = require("express");
-import  EmployeeService  from '../services/employee.service'
+import  EmployeeService  from '../services/employee.service';
+import { Employee } from '../model/employee.interface'
+import employeeService from "../services/employee.service";
 
 class EmployeeController {
-    async listUsers(req: express.Request, res: express.Response) {
-        const users = await EmployeeService.list(100, 0);
-        res.status(200).send(users);
+    async listEmployees(req: express.Request, res: express.Response) {
+        const emps : Employee[] = await EmployeeService.list(100, 0);
+        res.status(200).send(emps);
     }
 
     // async getUserById(req: express.Request, res: express.Response) {
@@ -12,11 +14,11 @@ class EmployeeController {
     //     res.status(200).send(user);
     // }
 
-    // async createUser(req: express.Request, res: express.Response) {
-    //     req.body.password = await argon2.hash(req.body.password);
-    //     const userId = await usersService.create(req.body);
-    //     res.status(201).send({ id: userId });
-    // }
+    async createEmployee(req: express.Request, res: express.Response) {
+        var emp: Employee = req.body
+        const eid = await employeeService.create(emp);
+        res.status(201).send({ eid: eid });
+    }
 
     // async patch(req: express.Request, res: express.Response) {
     //     if (req.body.password) {

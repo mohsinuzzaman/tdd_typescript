@@ -7,6 +7,7 @@ const routes: Array<CommonRoutesConfig> = [];
 // Our Express APP config
 const app = express();
 app.set("port", process.env.PORT || 3000);
+app.use(express.json());
 routes.push(new UsersRoutes(app));
 routes.push(new EmployeeRoutes(app));
 // API Endpoints

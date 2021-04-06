@@ -1,6 +1,7 @@
 import {CommonRoutesConfig} from './common.routes.config';
 import express = require("express");
 import EmployeeController from '../controllers/employee.controller';
+import EmployeeMiddleware from '../utils/employee.middleware'
 
 export class EmployeeRoutes extends CommonRoutesConfig {
     constructor(app: express.Application) {
@@ -8,14 +9,18 @@ export class EmployeeRoutes extends CommonRoutesConfig {
     }
 
     configureRoutes(): express.Application {
+
         this.app
-            .route(`/employees`)
-            .get(EmployeeController.listUsers)
-            // .post(
-            //     UsersMiddleware.validateRequiredUserBodyFields,
-            //     UsersMiddleware.validateSameEmailDoesntExist,
-            //     EmployeeController.createUser
-            // );
+            .route(`/employee/all`)
+            .get(EmployeeController.listEmployees)
+        
+        this.app
+            .route(`/employee`)
+            .post(
+                EmployeeMiddleware.validateRequiredEmployeeBodyFields,
+                EmployeeMiddleware.validateSameEidDoesntExist,
+                EmployeeController.createEmployee
+            );
 
         // this.app.param(`userId`, UsersMiddleware.extractUserId);
         // this.app

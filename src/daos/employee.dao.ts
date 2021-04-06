@@ -1,24 +1,31 @@
 import { Employee } from '../model/employee.interface';
-// import * as data from '../../database/employee.json';
 import * as fs from 'fs';
 
 class EmployeeDao {
     employeeData: Array<Employee>;
+    db: string = `/Users/mohsin/Documents/site/tdd_typescript/database/employees.json`
 
     constructor() {
         var foo = fs.readFileSync('/Users/mohsin/Documents/site/tdd_typescript/database/employees.json').toString();
-        console.log(foo);
         this.employeeData = JSON.parse(foo);
-        console.log('Created new instance of UsersDao');
     }
 
     async addEmployee(employee: Employee) {
         this.employeeData.push(employee);
+        await fs.writeFile(this.db, JSON.stringify(this.employeeData),  function(err) {
+            if (err) {
+                return console.error(err);
+            }
+        });
         return employee.eid;
     }
 
     async listEmployee() {
-        return this.employeeData;
+        return await this.employeeData;
+    }
+
+    async getEmployeeById(id: Number){
+        return this.employeeData.find(emp => emp.eid == id);
     }
 }
 
