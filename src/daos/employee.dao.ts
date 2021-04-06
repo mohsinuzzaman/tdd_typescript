@@ -27,6 +27,17 @@ class EmployeeDao {
     async getEmployeeById(id: Number){
         return this.employeeData.find(emp => emp.eid == id);
     }
+
+    async removeEmployeeById(id: number){
+        let index: number = this.employeeData.findIndex(emp => emp.eid == id);
+        this.employeeData.splice(index);
+        await fs.writeFile(this.db, JSON.stringify(this.employeeData),  function(err) {
+            if (err) {
+                return console.error(err);
+            }
+        });
+        return Promise.resolve(undefined);
+    }
 }
 
 export default new EmployeeDao();

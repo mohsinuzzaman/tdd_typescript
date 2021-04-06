@@ -22,12 +22,12 @@ export class EmployeeRoutes extends CommonRoutesConfig {
                 EmployeeController.createEmployee
             );
 
-        // this.app.param(`userId`, UsersMiddleware.extractUserId);
-        // this.app
-        //     .route(`/users/:userId`)
-        //     .all(UsersMiddleware.validateUserExists)
-        //     .get(EmployeeController.getUserById)
-        //     .delete(EmployeeController.removeUser);
+        // this.app.param(`userId`, EmployeeMiddleware.extractUserId);
+        this.app
+            .route(`/employee/:employeeId`)
+            .all(EmployeeMiddleware.validateEmployeeExists)
+            .get(EmployeeController.getEmployeeById)
+            .delete(EmployeeController.delete);
 
         // this.app.put(`/users/:userId`, [
         //     UsersMiddleware.validateRequiredUserBodyFields,

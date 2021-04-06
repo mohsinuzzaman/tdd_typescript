@@ -6,9 +6,9 @@ class EmployeeService{
         return await EmployeeDao.addEmployee(resource);
     }
 
-    // async deleteById(id: string)
-    //     return EmployeeDao.removeUserById(id);
-    // }
+    async deleteById(id: number){
+        return EmployeeDao.removeEmployeeById(id);
+    }
 
     async list(limit: number, page: number) {
         return await EmployeeDao.listEmployee();

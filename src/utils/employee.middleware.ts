@@ -21,6 +21,15 @@ class EmployeeMiddleware {
         }
     }
 
+    async validateEmployeeExists(req: express.Request, res: express.Response, next: express.NextFunction) {
+        const emp = await EmployeeService.readById(parseInt(req.params.employeeId));
+        if (emp) {
+            next();
+        } else {
+            res.status(201).send({ message: `Employee with given eid ${req.params.employeeId} doesn't exists` });
+        }
+    }
+
 }
 
 export default new EmployeeMiddleware();
