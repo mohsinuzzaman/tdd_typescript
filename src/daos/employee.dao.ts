@@ -38,6 +38,24 @@ class EmployeeDao {
         });
         return Promise.resolve(undefined);
     }
+
+    async updateEmployeeById(id: number, resource: Employee){
+        let emp: Employee = this.employeeData.find(emp => emp.eid == id);
+        let index: number = this.employeeData.findIndex(emp => emp.eid == id);
+        if(emp){
+            this.employeeData.splice(index);
+            this.employeeData.push(resource);
+            await fs.writeFile(this.db, JSON.stringify(this.employeeData),  function(err) {
+                if (err) {
+                    return console.error(err);
+                }
+            });
+            return "";
+        }else{
+            return {"message": `Employee with given eid ${id} doesn't exists`}
+        }
+        
+    }
 }
 
 export default new EmployeeDao();

@@ -22,9 +22,9 @@ class EmployeeService{
         return EmployeeDao.getEmployeeById(id);
     }
 
-    // async putById(id: string, resource: PutUserDto) {
-    //     return EmployeeDao.putUserById(id, resource);
-    // }
+    async putById(id: number, resource: Employee) {
+        return EmployeeDao.updateEmployeeById(id, resource);
+    }
 
     // async getUserByEmail(email: string) {
     //     return EmployeeDao.getUserByEmail(email);

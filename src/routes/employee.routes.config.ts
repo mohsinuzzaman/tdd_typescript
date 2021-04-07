@@ -29,11 +29,10 @@ export class EmployeeRoutes extends CommonRoutesConfig {
             .get(EmployeeController.getEmployeeById)
             .delete(EmployeeController.delete);
 
-        // this.app.put(`/users/:userId`, [
-        //     UsersMiddleware.validateRequiredUserBodyFields,
-        //     UsersMiddleware.validateSameEmailBelongToSameUser,
-        //     EmployeeController.put,
-        // ]);
+        this.app.put(`/employee/:employeeId`, [
+            EmployeeMiddleware.validateRequiredEmployeeBodyFields,
+            EmployeeController.put,
+        ]);
 
         // this.app.patch(`/users/:userId`, [
         //     UsersMiddleware.validatePatchEmail,

@@ -11,7 +11,8 @@ describe("POST /employee", () => {
     };
     const result = await request(app).post("/employee").send(obj);
     console.log(result.text)
-    expect(_.isEqual(JSON.parse(result.text),{ "eid": 999999}) || _.isEqual(JSON.parse(result.text),{"message": "Employee with given eid 999999 already exists"}))
+    expect(_.isEqual(JSON.parse(result.text),{ "eid": 999999}) 
+    || _.isEqual(JSON.parse(result.text),{"message": "Employee with given eid 999999 already exists"}))
     .toBeTruthy();
     expect(result.status).toEqual(201);
   });
@@ -28,6 +29,27 @@ describe("GET", () => {
   it("api endpoint for retrieving the employee by id", async () => {
     const result = await request(app).get("/employee/999999");
     expect(_.isEqual(JSON.parse(result.text),{ eid: 999999, name: "test999999", age: 999999 }) 
+    || _.isEqual(JSON.parse(result.text),{ "message": "Employee with given eid 999999 doesn't exists" }) ).toBeTruthy();
+    expect(result.status).toEqual(200);
+  });
+});
+
+describe("PUT", () => {
+  it("api endpoint for updating a employee", async () => {
+    let obj = {
+      eid: 999999,
+      name: "test999999-UPDATE",
+      age: 999999,
+    };
+    const result = await request(app).put("/employee/999999").send(obj);
+    expect(result.text).toEqual("");
+    expect(result.status == 204 || result.status ==400).toBeTruthy();
+  });
+
+  it("checking updated employee", async () => {
+    const result = await request(app).get("/employee/999999");
+    console.log(result.text);
+    expect(_.isEqual(JSON.parse(result.text),{ eid: 999999, name: "test999999-UPDATE", age: 999999 })
     || _.isEqual(JSON.parse(result.text),{ "message": "Employee with given eid 999999 doesn't exists" }) ).toBeTruthy();
     expect(result.status).toEqual(200);
   });

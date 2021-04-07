@@ -28,11 +28,15 @@ class EmployeeController {
     //     res.status(204).send();
     // }
 
-    // async put(req: express.Request, res: express.Response) {
-    //     req.body.password = await argon2.hash(req.body.password);
-    //     log(await usersService.putById(req.body.id, req.body));
-    //     res.status(204).send();
-    // }
+    async put(req: express.Request, res: express.Response) {
+        let result = await employeeService.putById(parseInt(req.params.employeeId), req.body);
+        if(result === ""){
+            res.status(204).send();
+        }else{
+            res.status(400).send();
+        }
+        
+    }
 
     async delete(req: express.Request, res: express.Response) {
         await employeeService.deleteById(parseInt(req.params.employeeId));
