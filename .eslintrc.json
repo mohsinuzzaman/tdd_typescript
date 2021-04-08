@@ -1,0 +1,13 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
+  "rules": {
+    // "quotes": [true, "single"],
+    // "new-parens": 2,
+    // "no-arg": 2,
+    // "no-require-imports": 2,
+    // "no-conditional-assignment": 2,
+    // "no-consecutive-blank-lines": 0
+  }
+}

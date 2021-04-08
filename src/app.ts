@@ -1,7 +1,7 @@
-import express = require("express");
-import {CommonRoutesConfig} from './routes/common.routes.config';
-import {UsersRoutes} from './routes/users.routes.config';
-import {EmployeeRoutes} from './routes/employee.routes.config';
+import * as express from "express";
+import { CommonRoutesConfig } from "./routes/common.routes.config";
+import { UsersRoutes } from "./routes/users.routes.config";
+import { EmployeeRoutes } from "./routes/employee.routes.config";
 const routes: Array<CommonRoutesConfig> = [];
 
 // Our Express APP config

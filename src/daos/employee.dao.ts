@@ -3,10 +3,10 @@ import * as fs from 'fs';
 
 class EmployeeDao {
     employeeData: Array<Employee>;
-    db: string = `/Users/mohsin/Documents/site/tdd_typescript/database/employees.json`
+    db = `/Users/mohsin/Documents/site/tdd_typescript/database/employees.json`
 
     constructor() {
-        var foo = fs.readFileSync('/Users/mohsin/Documents/site/tdd_typescript/database/employees.json').toString();
+        const foo = fs.readFileSync('/Users/mohsin/Documents/site/tdd_typescript/database/employees.json').toString();
         this.employeeData = JSON.parse(foo);
     }
 
@@ -24,12 +24,12 @@ class EmployeeDao {
         return await this.employeeData;
     }
 
-    async getEmployeeById(id: Number){
+    async getEmployeeById(id: number){
         return this.employeeData.find(emp => emp.eid == id);
     }
 
     async removeEmployeeById(id: number){
-        let index: number = this.employeeData.findIndex(emp => emp.eid == id);
+        const index: number = this.employeeData.findIndex(emp => emp.eid == id);
         this.employeeData.splice(index);
         await fs.writeFile(this.db, JSON.stringify(this.employeeData),  function(err) {
             if (err) {
@@ -40,8 +40,8 @@ class EmployeeDao {
     }
 
     async updateEmployeeById(id: number, resource: Employee){
-        let emp: Employee = this.employeeData.find(emp => emp.eid == id);
-        let index: number = this.employeeData.findIndex(emp => emp.eid == id);
+        const emp: Employee = this.employeeData.find(emp => emp.eid == id);
+        const index: number = this.employeeData.findIndex(emp => emp.eid == id);
         if(emp){
             this.employeeData.splice(index);
             this.employeeData.push(resource);

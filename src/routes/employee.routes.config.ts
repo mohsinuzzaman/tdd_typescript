@@ -1,45 +1,41 @@
-import {CommonRoutesConfig} from './common.routes.config';
-import express = require("express");
-import EmployeeController from '../controllers/employee.controller';
-import EmployeeMiddleware from '../utils/employee.middleware'
+import { CommonRoutesConfig } from "./common.routes.config";
+import * as express from "express";
+import EmployeeController from "../controllers/employee.controller";
+import EmployeeMiddleware from "../utils/employee.middleware";
 
 export class EmployeeRoutes extends CommonRoutesConfig {
-    constructor(app: express.Application) {
-        super(app, 'UsersRoutes');
-    }
+  constructor(app: express.Application) {
+    super(app, "UsersRoutes");
+  }
 
-    configureRoutes(): express.Application {
+  configureRoutes(): express.Application {
+    this.app.route(`/employee/all`).get(EmployeeController.listEmployees);
 
-        this.app
-            .route(`/employee/all`)
-            .get(EmployeeController.listEmployees)
-        
-        this.app
-            .route(`/employee`)
-            .post(
-                EmployeeMiddleware.validateRequiredEmployeeBodyFields,
-                EmployeeMiddleware.validateSameEidDoesntExist,
-                EmployeeController.createEmployee
-            );
+    this.app
+      .route(`/employee`)
+      .post(
+        EmployeeMiddleware.validateRequiredEmployeeBodyFields,
+        EmployeeMiddleware.validateSameEidDoesntExist,
+        EmployeeController.createEmployee
+      );
 
-        // this.app.param(`userId`, EmployeeMiddleware.extractUserId);
-        this.app
-            .route(`/employee/:employeeId`)
-            .all(EmployeeMiddleware.validateEmployeeExists)
-            .get(EmployeeController.getEmployeeById)
-            .delete(EmployeeController.delete);
+    // this.app.param(`userId`, EmployeeMiddleware.extractUserId);
+    this.app
+      .route(`/employee/:employeeId`)
+      .all(EmployeeMiddleware.validateEmployeeExists)
+      .get(EmployeeController.getEmployeeById)
+      .delete(EmployeeController.delete);
 
-        this.app.put(`/employee/:employeeId`, [
-            EmployeeMiddleware.validateRequiredEmployeeBodyFields,
-            EmployeeController.put,
-        ]);
+    this.app.put(`/employee/:employeeId`, [
+      EmployeeMiddleware.validateRequiredEmployeeBodyFields,
+      EmployeeController.put,
+    ]);
 
-        // this.app.patch(`/users/:userId`, [
-        //     UsersMiddleware.validatePatchEmail,
-        //     EmployeeController.patch,
-        // ]);
+    // this.app.patch(`/users/:userId`, [
+    //     UsersMiddleware.validatePatchEmail,
+    //     EmployeeController.patch,
+    // ]);
 
-        return this.app;
-    }
-
+    return this.app;
+  }
 }

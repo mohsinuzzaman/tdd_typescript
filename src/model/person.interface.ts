@@ -1,5 +1,5 @@
 export interface Person{
-    name: String,
-    age: Number,
-    phone?: Number
+    name: string,
+    age: number,
+    phone?: number
 }
