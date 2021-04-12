@@ -3,6 +3,8 @@ import * as request from "supertest";
 import * as _ from "lodash";
 import { Employee } from "../../model/employee.interface";
 
+jest.clearAllMocks();
+
 describe("POST /employee", () => {
   it("a api endpoint to create a employee", async () => {
     const obj = {
